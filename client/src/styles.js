@@ -21,11 +21,8 @@ export default makeStyles(() => ({
   },
   heading: {
     color: 'rgba(10, 10, 10, 1)',
-    fontSize: '2rem',
+    fontSize: '1rem',
     fontWeight: 'bold',
-    paddingTop: "10px"
-  },
-  image: {
-    marginLeft: '15px',
-  },
+    paddingTop: "15px"
+  }
 }));

@@ -8,15 +8,20 @@ export default makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(2),
+    marginTop: "20px",
+    borderRadius: "15px"
   },
   form: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
+    
   },
   fileInput: {
     width: '97%',
     margin: '10px 0',
+    display: 'flex',
+    flexWrap: 'wrap'
   },
   buttonSubmit: {
     marginBottom: 10,
@@ -24,26 +29,23 @@ export default makeStyles((theme) => ({
 
 
   /*my css*/
+
+  textField: {
+    margin: "5px 0"
+  },
+
   submitButton: {
-    width: '250px',
-    padding: '15px 10px',
-    border: 'none',
-    margin: '10px',
-    background: 'rgba(199, 70, 0, 1)',
+    margin: '10px 0',
+    background: 'rgba(255, 94, 0, 1)',
     color: 'white',
-    fontWeight: 'bold',
     fontSize: '1rem',
     borderRadius: '8px'
   },
 
-  input: {
-    width: '249px',
-    padding: '15px 10px',
-    border: '1px solid rgba(0, 0, 0, 0.2)',
-    margin: '10px',
-    background: 'rgba(0, 0, 0, 0.02)',
-    fontSize: '1rem',
-    borderRadius: '8px'
-  },
+  clearButton: {
+    background: 'none',
+    color: '#555',
+    boxShadow: 'none'
+  }
 
 }));

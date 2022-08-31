@@ -1,21 +1,42 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
-import useStyles from './styles'
+import { Card, CardContent, CardMedia, Button, Typography } from '@material-ui/core';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import DeleteIcon from '@material-ui/icons/Delete';
+import useStyles from './styles';
+import moment from 'moment';
 
-const Post = () => {
-
-  const posts = useSelector((state) => state.posts);
+const Post = ({ post }) => {
   const style = useStyles();
 
-  console.log(posts);
-
   return (
-    <div className={style.card}>
-        <h1 className={style.creator}>Creator</h1>
-        <img className={style.img} alt="" style={{background: 'black'}} />
-        <p className={style.title}>Title</p>
-        <p className={style.details}>Desrp</p>
-    </div>
+    <Card className={style.card}>
+      <div className={style.header}>
+        <div className={style.creatorBox}>
+          <Typography className={style.creator} variant="body2">{post.creator}</Typography>
+          <Typography className={style.time} variant="body2"> · {moment(post.createdAt).fromNow()}</Typography>
+        </div>
+        <Button size="small" color="secondary" onClick={() => {}}><DeleteIcon fontSize="small"/>
+        </Button>
+      </div>
+      
+      <CardMedia className={style.img} image={post.selectedFile} title={post.title}/>
+
+      <div className={style.likeButton}>
+        <Button size="small" color="secondary" onClick={() => {}}>
+          <FavoriteBorderIcon fontSize="small" style={{marginRight: '10px'}}/>
+          {post.likeCount}
+        </Button>
+      </div>
+
+      <CardContent>
+        <Typography className={style.title} variant="body2" gutterBottom>{post.title}</Typography>
+        <Typography className={style.desc} variant="body2" gutterBottom>{post.message}</Typography>
+        <div className={style.tags}>
+          <Typography variant="body2">{post.tags.map((tag) => `#${tag} `)}</Typography>
+        </div>
+      </CardContent>
+      
+    </Card>
   )
 }
 
