@@ -6,7 +6,7 @@ export default makeStyles(() => ({
     position: 'absolute',
     top: '0',
     left: '0',
-    width: '98%',
+    width: '100%',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
