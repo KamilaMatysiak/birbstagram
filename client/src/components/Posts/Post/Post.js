@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Card, CardContent, CardMedia, Button, Typography, Menu, MenuItem, ListItemText, ListItemIcon, MenuList } from '@material-ui/core';
+import { Card, CardContent, CardMedia, Button, Typography, Menu, MenuItem, ListItemText, ListItemIcon } from '@material-ui/core';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import EditIcon from '@material-ui/icons/Edit';
@@ -7,7 +7,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import useStyles from './styles';
 import moment from 'moment';
 
-const Post = ({ post }) => {
+const Post = ({ post, setCurrentId }) => {
   const style = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -46,7 +46,7 @@ const Post = ({ post }) => {
             }}
           >  
             <MenuItem onClick={handleClose}>
-              <ListItemIcon onClick={() => {}}>
+              <ListItemIcon onClick={() => {setCurrentId(post._id)}}>
                 <EditIcon fontSize="small" />
               </ListItemIcon>
               <ListItemText>Edit</ListItemText>
