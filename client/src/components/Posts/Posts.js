@@ -14,7 +14,7 @@ const Posts = ({setCurrentId}) => {
     !posts.length ? <div className={style.mainDiv}><CircularProgress className={style.spinner}/></div> : (
       <div >
         {posts.map((post) => (
-        <Grid key={post.id} item xs={12} sm={12}>
+        <Grid key={post._id} item xs={12} sm={12}>
             <Post post={post} setCurrentId={setCurrentId}/>
         </Grid>))}
       </div>

@@ -1,4 +1,5 @@
 export default (posts = [], action) => {
+    console.log(action.type)
     switch(action.type) {
         case 'FETCH_ALL':
             return action.payload;
@@ -7,7 +8,9 @@ export default (posts = [], action) => {
         case 'UPDATE':
             return posts.map((post) => post._id === action.payload._id ? action.payload : post )
         case 'DELETE':
-            return action.payload;
+            return posts.filter((post) => post._id !== action.payload);
+        case 'LIKE':
+            return posts.map((post) => (post._id === action.payload._id ? action.payload: post))
         default:
             return posts;
     }

@@ -29,7 +29,7 @@ export const updatePost = async (req, res) => {
     if(!mongoose.Types.ObjectId.isValid(_id))
         return res.status(404).json({message: error.message })
 
-    const updatedPost = await Post.findByIdAndUpdate(_id, post, {new: true})
+    const updatedPost = await Post.findByIdAndUpdate(_id, {...post, _id}, {new: true});
 
     res.json(updatedPost)
 }

@@ -19,16 +19,16 @@ const Form = ({currentId, setCurrentId}) => {
   })
   const dispatch = useDispatch();
 
-  const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : null);
-  useEffect(() => {
-    if(post) 
-      setPostData(post);
+  const post = useSelector((state) => (currentId ? state.posts.find((p) => p._id === currentId) : null));
+
+  useEffect(() => { 
+    if(post) setPostData(post)
   }, [post]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if(currentId) {
+    console.log("dupa");
+    if(currentId !== 0) {
       dispatch(updatePost(currentId, postData));
     } else {
       dispatch(createPost(postData));
@@ -36,7 +36,8 @@ const Form = ({currentId, setCurrentId}) => {
     clear();
   }
   const clear = () => {
-    setCurrentId(null);
+    console.log("hate my life")
+    
     setPostData({
       creator: '',
       title: '',
@@ -44,6 +45,7 @@ const Form = ({currentId, setCurrentId}) => {
       tags: '',
       selectedFile: ''
     })
+    setCurrentId(0);
   }
 
   return (
@@ -57,7 +59,7 @@ const Form = ({currentId, setCurrentId}) => {
         <div className={style.fileInput}>
           <FileBase type="file" multiple={false} onDone={({base64}) => setPostData({...postData, selectedFile: base64})}/>
         </div>
-        <Button type="submit" className={style.submitButton} variant="contained" size="large" fullWidth>Submit</Button>
+        <Button type="submit" onClick={() => {console.log("wrrrrrrr")}} className={style.submitButton} variant="contained" size="large" fullWidth>Submit</Button>
         <Button onClick={clear} className={style.clearButton} variant="contained" size="small" fullWidth>{currentId ? 'Cancel' : 'Clear'}</Button>
     </form>
     </Paper>

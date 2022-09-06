@@ -6,15 +6,18 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import useStyles from './styles';
 import moment from 'moment';
+import { useDispatch } from 'react-redux';
+import { likePost, deletePost } from '../../../actions/posts';
 
 const Post = ({ post, setCurrentId }) => {
   const style = useStyles();
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event) => {
+  const openMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const closeMenu = () => {
     setAnchorEl(null)
   }
 
@@ -32,7 +35,7 @@ const Post = ({ post, setCurrentId }) => {
             aria-controls={open ? 'basic-menu' : undefined}
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
-            onClick={handleClick}
+            onClick={openMenu}
           >
             <MoreHorizIcon size='small'/>
           </Button>
@@ -40,20 +43,20 @@ const Post = ({ post, setCurrentId }) => {
             id="basic-menu"
             anchorEl={anchorEl}
             open={open}
-            onClose={handleClose}
+            onClose={closeMenu}
             MenuListProps={{
               'aria-labelledby': 'basic-button',
             }}
           >  
-            <MenuItem onClick={handleClose}>
-              <ListItemIcon onClick={() => {setCurrentId(post._id)}}>
+            <MenuItem onClick={closeMenu}>
+              <ListItemIcon onClick={() => {setCurrentId(post._id); console.log('edit click')}}>
                 <EditIcon fontSize="small" />
               </ListItemIcon>
               <ListItemText>Edit</ListItemText>
             </MenuItem>
 
-            <MenuItem onClick={handleClose}>
-              <ListItemIcon onClick={() => {}}>
+            <MenuItem onClick={closeMenu}>
+              <ListItemIcon onClick={() => dispatch(deletePost(post._id))}>
                 <DeleteIcon fontSize="small" />
               </ListItemIcon>
               <ListItemText>Delete</ListItemText>
