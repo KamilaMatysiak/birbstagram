@@ -69,7 +69,7 @@ const Post = ({ post, setCurrentId }) => {
       <CardMedia className={style.img} image={post.selectedFile} title={post.title}/>
 
       <div className={style.likeButton}>
-        <Button size="small" color="secondary" onClick={() => {}}>
+        <Button size="small" color="secondary" onClick={() => dispatch(likePost(post._id))}>
           <FavoriteBorderIcon fontSize="small" style={{marginRight: '10px'}}/>
           {post.likeCount}
         </Button>
