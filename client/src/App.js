@@ -1,45 +1,22 @@
-import React, { useState, useEffect } from "react";
-import { Container, AppBar, Typography, Grow, Grid } from "@material-ui/core";
-import { useDispatch } from 'react-redux';
+import React from "react";
+import { Container} from "@material-ui/core";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Navbar from "./components/Navbar/Navbar";
+import Home from "./components/Home/Home";
+import Auth from "./components/Auth/Auth";
 
-import { getPosts } from './actions/posts';
-import Posts from "./components/Posts/Posts";
-import Form from "./components/Form/Form";
-
-import birdie from './data/birdie.png';
-import useStyles from './styles'
 
 const App = () => {
-    const style = useStyles();
-    const dispatch = useDispatch();
-    const [currentId, setCurrentId] = useState(0);
-
-    useEffect(() => {
-        dispatch(getPosts());
-    }, [currentId, dispatch])
-
     return (
-        <Container>
-            <AppBar className={style.appBar} position="static" color="inherit">
-                <div className={style.logo}>
-                    <img className={style.image} src={birdie} alt="Birb" width={100}/>
-                    <Typography className={style.heading} variant="h3">Birbstagram</Typography>    
-                </div>
-                <div>Menu buttons</div>
-            </AppBar>
-            <Grow in>
-                <Container style={{marginTop: "80px"}}>
-                    <Grid container className={style.mainContainer} justifyContent="space-between" alignItems="stretch" spacing={3}>
-                        <Grid item xs={12} sm={8}>
-                            <Posts setCurrentId={setCurrentId}/>
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <Form currentId={currentId} setCurrentId={setCurrentId} />
-                        </Grid>
-                    </Grid>
-                </Container>
-            </Grow>    
-        </Container>
+        <BrowserRouter>
+            <Container>
+                <Navbar/>
+                <Routes>
+                    <Route path='/' element={<Home/>}/>
+                    <Route path='/auth' element={<Auth/>}/>
+                </Routes>  
+            </Container>
+        </BrowserRouter>
     )
 }
 
