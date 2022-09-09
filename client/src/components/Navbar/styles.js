@@ -31,5 +31,10 @@ export default makeStyles((theme) => ({
     login: {
         color: 'rgba(255, 94, 0, 1)',
         borderColor: 'rgba(255, 94, 0, 1)',
+    },
+
+    or: {
+        color: '#555',
+        textAlign: 'center'
     }
 }))
