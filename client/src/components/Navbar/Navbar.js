@@ -1,14 +1,23 @@
 import React, {useState, useEffect} from 'react'
-import { AppBar, Typography, Toolbar, Avatar, Button, Menu, MenuItem, ListItemText, ListItemIcon } from '@material-ui/core';
+import { AppBar, Typography, Toolbar, Avatar, Button, Menu, MenuItem, ListItemText, ListItemIcon, IconButton, Tooltip, Divider } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-//import PersonIcon from '@material-ui/icons/Person';
+import PersonIcon from '@material-ui/icons/Person';
 import useStyles from './styles'
 import birdie from '../../data/birdie.png';
 const Navbar = () => {
     const style = useStyles();
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+    const openMenu = (event) => {
+        setAnchorEl(event.currentTarget);
+      };
+      const closeMenu = () => {
+        setAnchorEl(null)
+      }
 
     console.log(user);
 
@@ -22,13 +31,49 @@ const Navbar = () => {
             <Toolbar className={style.toolbar}>
             { user ? (
                 <div className={style.profile}>
-                    <Avatar className={style.avatar} alt={user.userName} src={user.avatar}>
-                        {user.userName.charAt(0)}
-                    </Avatar>
+                    <Tooltip title="Account settings">
+                        <IconButton
+                            onClick={openMenu}
+                            size="small"
+                            sx={{ ml: 2 }}
+                            aria-controls={open ? 'account-menu' : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={open ? 'true' : undefined}
+                        >         
+                            <Avatar className={style.avatar} alt={user.userName} src={user.avatar}>
+                                {user.userName.charAt(0)}
+                            </Avatar>
+                        </IconButton>
+                    </Tooltip>
+                    <Menu
+                        id="basic-menu"
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={closeMenu}
+                        MenuListProps={{
+                        'aria-labelledby': 'basic-button',
+                        }}
+                    >  
 
-                    <Button className={style.logout} variant="contained">
-                        <ExitToAppIcon/>
-                    </Button>
+                        <MenuItem className={style.profileCard}>
+                            <Avatar src={user.avatar}/>
+                            <Typography variant="h6">{user.userName}</Typography>
+                        </MenuItem>
+                        <Divider />
+                        <MenuItem onClick={closeMenu}>
+                            <ListItemIcon onClick={() => {}}>
+                                <PersonIcon fontSize="small" />
+                            </ListItemIcon>
+                            <ListItemText>Profile</ListItemText>
+                        </MenuItem>
+
+                        <MenuItem onClick={closeMenu}>
+                            <ListItemIcon onClick={() => {}}>
+                                <ExitToAppIcon fontSize="small" />
+                            </ListItemIcon>
+                            <ListItemText>Logout</ListItemText>
+                        </MenuItem>
+                    </Menu>
                 </div>
             ):(
                 <div>

@@ -50,6 +50,13 @@ export default makeStyles((theme) => ({
 
     logout: {
         background: '#fff',
+    },
+
+    profileCard: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems:'center'
     }
 
 }))

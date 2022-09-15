@@ -20,6 +20,7 @@ const Auth = () => {
         
         const user = localStorage.getItem('profile');
         dispatch({type: 'AUTH', data: {user}})
+        history.push('/');
     }
 
     const switchMode = () => {
