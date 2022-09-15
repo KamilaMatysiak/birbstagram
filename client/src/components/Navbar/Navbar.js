@@ -1,14 +1,19 @@
 import React, {useState, useEffect} from 'react'
 import { AppBar, Typography, Toolbar, Avatar, Button, Menu, MenuItem, ListItemText, ListItemIcon, IconButton, Tooltip, Divider } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate  } from 'react-router-dom';
 
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonIcon from '@material-ui/icons/Person';
 import useStyles from './styles'
 import birdie from '../../data/birdie.png';
+import { googleLogout } from '@react-oauth/google';
+import { useDispatch } from 'react-redux';
+
 const Navbar = () => {
     const style = useStyles();
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -21,11 +26,18 @@ const Navbar = () => {
 
     console.log(user);
 
+    const logout = () => {
+        dispatch({type: 'LOGOUT'});
+        navigate('/auth');
+        setUser(null);
+    };
 
     return (
         <AppBar className={style.appBar} position="static" color="inherit">
             <div className={style.logo}>
-                <img className={style.image} src={birdie} alt="Birb" width={100}/>
+                <Link to='/'>
+                    <img className={style.image} src={birdie} alt="Birb" width={100}/>
+                </Link>
                 <Typography className={style.heading} variant="h3">Birbstagram</Typography>    
             </div>
             <Toolbar className={style.toolbar}>
@@ -68,7 +80,7 @@ const Navbar = () => {
                         </MenuItem>
 
                         <MenuItem onClick={closeMenu}>
-                            <ListItemIcon onClick={() => {}}>
+                            <ListItemIcon onClick={() => {logout()}}>
                                 <ExitToAppIcon fontSize="small" />
                             </ListItemIcon>
                             <ListItemText>Logout</ListItemText>

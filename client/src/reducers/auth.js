@@ -5,9 +5,10 @@ const authReducer = (state = { authData: null }, action) => {
         case AUTH:
             return {...state, authData: action?.data};
         case LOGOUT:
-            return state;;
+            localStorage.clear();
+            return {...state, authData: null};
         default:
-            return state;;
+            return state;
     }
 }
 

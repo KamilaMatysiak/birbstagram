@@ -6,6 +6,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { GoogleLogin, googleLogout } from '@react-oauth/google';
 import { createOrGetUser } from './utils';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import Input from './Input';
 
@@ -14,13 +15,14 @@ const Auth = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [isSignUp, setIsSignUp] = useState(false);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const googleSucces = async (res) => {
         createOrGetUser(res);
         
         const user = localStorage.getItem('profile');
         dispatch({type: 'AUTH', data: {user}})
-        history.push('/');
+        navigate('/');
     }
 
     const switchMode = () => {
