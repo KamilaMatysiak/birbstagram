@@ -36,5 +36,20 @@ export default makeStyles((theme) => ({
     or: {
         color: '#555',
         textAlign: 'center'
+    },
+
+    profile: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    avatar: {
+        margin: 5,
+    },
+
+    logout: {
+        background: '#fff',
     }
+
 }))

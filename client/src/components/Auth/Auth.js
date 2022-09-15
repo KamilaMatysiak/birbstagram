@@ -5,6 +5,7 @@ import useStyles from './styles';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { GoogleLogin, googleLogout } from '@react-oauth/google';
 import { createOrGetUser } from './utils';
+import { useDispatch } from 'react-redux';
 
 import Input from './Input';
 
@@ -12,6 +13,14 @@ const Auth = () => {
     const style = useStyles();
     const [showPassword, setShowPassword] = useState(false);
     const [isSignUp, setIsSignUp] = useState(false);
+    const dispatch = useDispatch();
+
+    const googleSucces = async (res) => {
+        createOrGetUser(res);
+        
+        const user = localStorage.getItem('profile');
+        dispatch({type: 'AUTH', data: {user}})
+    }
 
     const switchMode = () => {
         setIsSignUp((prevIsSignUp) => !prevIsSignUp)
@@ -38,7 +47,7 @@ const Auth = () => {
                             ? <></>
                             : <Grid container justifyContent='center' alignItems='center' direction='column'>
                                 <GoogleLogin
-                                    onSuccess={(res) => createOrGetUser(res)}
+                                    onSuccess={(res) => googleSucces(res)}
                                     onError={(res) => console.log(res)}/>
                                 <p className={style.or}>OR</p>
                               </Grid>

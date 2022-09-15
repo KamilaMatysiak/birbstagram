@@ -1,10 +1,9 @@
 import {AUTH, LOGOUT} from "../constants/actionTypes";
 
 const authReducer = (state = { authData: null }, action) => {
-    switch (action) {
+    switch (action.type) {
         case AUTH:
-            console.log(action?.data)
-            return state;
+            return {...state, authData: action?.data};
         case LOGOUT:
             return state;;
         default:

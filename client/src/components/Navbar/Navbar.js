@@ -1,5 +1,5 @@
-import React from 'react'
-import { AppBar, Typography, Toolbar, Avatar, Button } from '@material-ui/core';
+import React, {useState, useEffect} from 'react'
+import { AppBar, Typography, Toolbar, Avatar, Button, Menu, MenuItem, ListItemText, ListItemIcon } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -8,7 +8,10 @@ import useStyles from './styles'
 import birdie from '../../data/birdie.png';
 const Navbar = () => {
     const style = useStyles();
-    const user = null;
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+
+    console.log(user);
+
 
     return (
         <AppBar className={style.appBar} position="static" color="inherit">
@@ -19,12 +22,10 @@ const Navbar = () => {
             <Toolbar className={style.toolbar}>
             { user ? (
                 <div className={style.profile}>
-                    <Avatar className={style.avatar} alt={user.result.name} src={user.result.imageUrl}>
-                        {user.result.name.charAt(0)}
+                    <Avatar className={style.avatar} alt={user.userName} src={user.avatar}>
+                        {user.userName.charAt(0)}
                     </Avatar>
-                    <Typography className={style.userName} variant="h6">
-                        {user.result.name}
-                    </Typography>
+
                     <Button className={style.logout} variant="contained">
                         <ExitToAppIcon/>
                     </Button>
