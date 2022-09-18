@@ -3,15 +3,16 @@ import {Avatar, Button, Grid, Typography, Container, Paper } from '@material-ui/
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import useStyles from './styles';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import { GoogleLogin, googleLogout } from '@react-oauth/google';
-import { createOrGetUser } from './utils';
+import { GoogleLogin } from '@react-oauth/google';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { signin, signup } from '../../actions/auth';
+import jwt_decode from 'jwt-decode';
+
 
 import Input from './Input';
 
-const initialState = { firstName: '', lastName: '', emailAddress: '', password: '', confirmPassword: '' };
+const initialState = { firstName: '', lastName: '', userName: '', emailAddress: '', password: '', confirmPassword: '' };
 
 const Auth = () => {
     const style = useStyles();
@@ -22,13 +23,29 @@ const Auth = () => {
     const navigate = useNavigate();
 
     const googleSucces = async (res) => {
-        createOrGetUser(res);
+        const decoded = jwt_decode(res.credential);
+        const picture = decoded.picture;
+        const name = decoded.name;
+        const sub = decoded.sub;
+
+        const user = {
+            _id: sub,
+            _type: 'user',
+            userName: name,
+            avatar: picture
+        };
+
+        const token = res.credential;
+
+        console.table(user);
+        console.log(token);
+        try {
+            dispatch({type: 'AUTH', data: {user, token}})
+            navigate('/');
+        } catch(error){
+            console.log(error);
+        }
         
-        const user = localStorage.getItem('profile');
-        const token = res?.tokenId;
-        
-        dispatch({type: 'AUTH', data: {user, token}})
-        navigate('/');
     }
 
     const switchMode = () => {

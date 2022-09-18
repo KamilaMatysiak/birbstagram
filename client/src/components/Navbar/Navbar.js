@@ -6,7 +6,6 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonIcon from '@material-ui/icons/Person';
 import useStyles from './styles'
 import birdie from '../../data/birdie.png';
-import { googleLogout } from '@react-oauth/google';
 import { useDispatch } from 'react-redux';
 
 const Navbar = () => {
@@ -15,7 +14,7 @@ const Navbar = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const location = useLocation();
-    
+
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const openMenu = (event) => {
@@ -26,8 +25,6 @@ const Navbar = () => {
       }
 
     useEffect(() => {
-        const token = user?.token;
-
         setUser(JSON.parse(localStorage.getItem('profile')));
     }, [location])
 
@@ -36,6 +33,9 @@ const Navbar = () => {
         navigate('/auth');
         setUser(null);
     };
+
+    console.table(user);
+    console.log(user);
 
     return (
         <AppBar className={style.appBar} position="static" color="inherit">
@@ -57,8 +57,8 @@ const Navbar = () => {
                             aria-haspopup="true"
                             aria-expanded={open ? 'true' : undefined}
                         >         
-                            <Avatar className={style.avatar} alt={user.userName} src={user.avatar}>
-                                {user.userName.charAt(0)}
+                            <Avatar className={style.avatar} alt={user.user.userName} src={user.user.avatar}>
+                                {user.user.userName? user.user.userName.charAt(0) : "U"}
                             </Avatar>
                         </IconButton>
                     </Tooltip>
@@ -73,8 +73,8 @@ const Navbar = () => {
                     >  
 
                         <MenuItem className={style.profileCard}>
-                            <Avatar src={user.avatar}/>
-                            <Typography variant="h6">{user.userName}</Typography>
+                            <Avatar src={user.user.avatar}/>
+                            <Typography variant="h6">{user.user.userName}</Typography>
                         </MenuItem>
                         <Divider />
                         <MenuItem onClick={closeMenu}>

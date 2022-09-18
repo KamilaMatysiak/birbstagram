@@ -8,7 +8,7 @@ import useStyles from './styles'
 const Posts = ({setCurrentId}) => {
   const style = useStyles()
   const posts = useSelector((state) => state.posts);
-  console.log(posts)
+  console.table(posts)
   return (
     
     !posts.length ? <div className={style.mainDiv}><CircularProgress className={style.spinner}/></div> : (
