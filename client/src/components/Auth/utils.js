@@ -4,7 +4,7 @@ import axios from 'axios';
 export const createOrGetUser = async (res, addUser) => {
     console.log(res.credential);
     const decoded = jwt_decode(res.credential);
-    
+    console.table(decoded);
     const picture = decoded.picture;
     const name = decoded.name;
     const sub = decoded.sub;

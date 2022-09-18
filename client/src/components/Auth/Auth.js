@@ -7,13 +7,17 @@ import { GoogleLogin, googleLogout } from '@react-oauth/google';
 import { createOrGetUser } from './utils';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { signin, signup } from '../../actions/auth';
 
 import Input from './Input';
+
+const initialState = { firstName: '', lastName: '', emailAddress: '', password: '', confirmPassword: '' };
 
 const Auth = () => {
     const style = useStyles();
     const [showPassword, setShowPassword] = useState(false);
     const [isSignUp, setIsSignUp] = useState(false);
+    const [formData, setFormData] = useState(initialState);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -21,7 +25,9 @@ const Auth = () => {
         createOrGetUser(res);
         
         const user = localStorage.getItem('profile');
-        dispatch({type: 'AUTH', data: {user}})
+        const token = res?.tokenId;
+        
+        dispatch({type: 'AUTH', data: {user, token}})
         navigate('/');
     }
 
@@ -30,8 +36,20 @@ const Auth = () => {
         handleShowPassword(false);
     };
 
-    const handleSubmit = () => {};
-    const handleChange = () => {};
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        if(isSignUp){
+            dispatch(signup(formData, navigate))
+        } else {
+            dispatch(signin(formData, navigate))
+        }
+    };
+
+    const handleChange = (e) => {
+        setFormData({...formData, [e.target.name]: e.target.value });
+    };
+
     const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword);
 
 

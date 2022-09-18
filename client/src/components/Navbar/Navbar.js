@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { AppBar, Typography, Toolbar, Avatar, Button, Menu, MenuItem, ListItemText, ListItemIcon, IconButton, Tooltip, Divider } from '@material-ui/core';
-import { Link, useNavigate  } from 'react-router-dom';
+import { Link, useNavigate, useLocation  } from 'react-router-dom';
 
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonIcon from '@material-ui/icons/Person';
@@ -14,6 +14,7 @@ const Navbar = () => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const location = useLocation();
     
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -24,7 +25,11 @@ const Navbar = () => {
         setAnchorEl(null)
       }
 
-    console.log(user);
+    useEffect(() => {
+        const token = user?.token;
+
+        setUser(JSON.parse(localStorage.getItem('profile')));
+    }, [location])
 
     const logout = () => {
         dispatch({type: 'LOGOUT'});
