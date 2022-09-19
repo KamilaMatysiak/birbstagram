@@ -49,7 +49,7 @@ const Post = ({ post, setCurrentId }) => {
             }}
           >  
             <MenuItem onClick={closeMenu}>
-              <ListItemIcon onClick={() => {setCurrentId(post._id); console.log('edit click')}}>
+              <ListItemIcon onClick={() => {setCurrentId(post._id)}}>
                 <EditIcon fontSize="small" />
               </ListItemIcon>
               <ListItemText>Edit</ListItemText>

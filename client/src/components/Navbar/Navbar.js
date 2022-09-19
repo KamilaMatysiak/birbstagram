@@ -34,9 +34,6 @@ const Navbar = () => {
         setUser(null);
     };
 
-    console.table(user);
-    console.log(user);
-
     return (
         <AppBar className={style.appBar} position="static" color="inherit">
             <div className={style.logo}>

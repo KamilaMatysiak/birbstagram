@@ -37,20 +37,17 @@ const Auth = () => {
 
         const token = res.credential;
 
-        console.table(user);
-        console.log(token);
         try {
             dispatch({type: 'AUTH', data: {user, token}})
             navigate('/');
         } catch(error){
             console.log(error);
         }
-        
     }
 
     const switchMode = () => {
         setIsSignUp((prevIsSignUp) => !prevIsSignUp)
-        handleShowPassword(false);
+        setShowPassword(false);
     };
 
     const handleSubmit = (e) => {

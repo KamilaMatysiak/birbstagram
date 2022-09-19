@@ -27,7 +27,7 @@ const Form = ({currentId, setCurrentId}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("dupa");
+
     if(currentId !== 0) {
       dispatch(updatePost(currentId, postData));
     } else {
@@ -36,7 +36,6 @@ const Form = ({currentId, setCurrentId}) => {
     clear();
   }
   const clear = () => {
-    console.log("hate my life")
     
     setPostData({
       creator: '',
@@ -59,7 +58,7 @@ const Form = ({currentId, setCurrentId}) => {
         <div className={style.fileInput}>
           <FileBase type="file" multiple={false} onDone={({base64}) => setPostData({...postData, selectedFile: base64})}/>
         </div>
-        <Button type="submit" onClick={() => {console.log("wrrrrrrr")}} className={style.submitButton} variant="contained" size="large" fullWidth>Submit</Button>
+        <Button type="submit" className={style.submitButton} variant="contained" size="large" fullWidth>Submit</Button>
         <Button onClick={clear} className={style.clearButton} variant="contained" size="small" fullWidth>{currentId ? 'Cancel' : 'Clear'}</Button>
     </form>
     </Paper>
