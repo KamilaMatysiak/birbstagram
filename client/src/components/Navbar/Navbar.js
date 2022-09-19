@@ -81,8 +81,8 @@ const Navbar = () => {
                             <ListItemText>Profile</ListItemText>
                         </MenuItem>
 
-                        <MenuItem onClick={closeMenu}>
-                            <ListItemIcon onClick={() => {logout()}}>
+                        <MenuItem onClick={() => {logout()}}>
+                            <ListItemIcon>
                                 <ExitToAppIcon fontSize="small" />
                             </ListItemIcon>
                             <ListItemText>Logout</ListItemText>
