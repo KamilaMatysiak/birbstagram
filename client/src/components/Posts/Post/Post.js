@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Card, CardContent, CardMedia, Button, Typography, Menu, MenuItem, ListItemText, ListItemIcon } from '@material-ui/core';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -14,6 +15,7 @@ const Post = ({ post, setCurrentId }) => {
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const user = JSON.parse(localStorage.getItem('profile'));
   const openMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -21,11 +23,28 @@ const Post = ({ post, setCurrentId }) => {
     setAnchorEl(null)
   }
 
+  const Likes = () => {
+    if(post.likes.length > 0) {
+      return(
+        post.likes.find((like) => like === (user?.user?.googleId || user?.user?._id))
+          ? (
+            <><FavoriteIcon fontSize="small"/> &nbsp; {post.likes.length} {post.likes.length > 1 ? 'likes' : 'like'} </>
+          ) : (
+            <><FavoriteBorderIcon fontSize="small"/> &nbsp; {post.likes.length} {post.likes.length === 1 ? 'like' : 'likes'} </>
+          )
+        ) 
+    }
+
+    return(
+      <><FavoriteBorderIcon fontSize="small" style={{marginRight: '10px'}}/>{post.likeCount}</>
+    )
+  }
+
   return (
     <Card className={style.card}>
       <div className={style.header}>
         <div className={style.creatorBox}>
-          <Typography className={style.creator} variant="body2">{post.creator}</Typography>
+          <Typography className={style.creator} variant="body2">{post.userName}</Typography>
           <Typography className={style.time} variant="body2"> · {moment(post.createdAt).fromNow()}</Typography>
         </div>
         <div>
@@ -68,14 +87,10 @@ const Post = ({ post, setCurrentId }) => {
       
       <CardMedia className={style.img} image={post.selectedFile} title={post.title}/>
 
-      <div className={style.likeButton}>
-        <Button size="small" color="secondary" onClick={() => dispatch(likePost(post._id))}>
-          <FavoriteBorderIcon fontSize="small" style={{marginRight: '10px'}}/>
-          {post.likeCount}
-        </Button>
-      </div>
-
       <CardContent>
+        <Button size="small" className={style.likeButton} color="secondary" disabled={!user?.user} onClick={() => dispatch(likePost(post._id))}>
+          <Likes/>
+        </Button>
         <Typography className={style.title} variant="body2" gutterBottom>{post.title}</Typography>
         <Typography className={style.desc} variant="body2" gutterBottom>{post.message}</Typography>
         <div className={style.tags}>

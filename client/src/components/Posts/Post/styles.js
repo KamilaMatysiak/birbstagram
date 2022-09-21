@@ -44,20 +44,24 @@ export default makeStyles({
 
   likeButton: {
     justifyContent: 'left',
-    margin: "5px 0",
+    margin: 0,
+    padding: "5px 0",
   },
 
   title: {
     fontWeight: 'bold',
-    color: '#333'
+    color: '#333',
+    marginLeft: 4,
   },
 
   desc: {
-    color: "#666"
+    color: "#666",
+    marginLeft: 4,
   },
 
   tags: {
     color: 'rgba(255, 94, 0, 1)',
+    marginLeft: 4,
   },
 
 

@@ -31,6 +31,7 @@ const Navbar = () => {
     const logout = () => {
         dispatch({type: 'LOGOUT'});
         navigate('/auth');
+        setAnchorEl(null);
         setUser(null);
     };
 
