@@ -47,42 +47,42 @@ const Post = ({ post, setCurrentId }) => {
           <Typography className={style.creator} variant="body2">{post.userName}</Typography>
           <Typography className={style.time} variant="body2"> · {moment(post.createdAt).fromNow()}</Typography>
         </div>
+        {(user?.user?.googleId === post?.creator || user?.user?._id === post?.creator) && (
         <div>
+            <Button
+              id="basic-button"
+              aria-controls={open ? 'basic-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? 'true' : undefined}
+              onClick={openMenu}
+            >
+              <MoreHorizIcon size='small'/>
+            </Button>
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={closeMenu}
+              MenuListProps={{
+                'aria-labelledby': 'basic-button',
+              }}
+            >  
+              <MenuItem onClick={closeMenu}>
+                <ListItemIcon onClick={() => {setCurrentId(post._id)}}>
+                  <EditIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Edit</ListItemText>
+              </MenuItem>
 
-          <Button
-            id="basic-button"
-            aria-controls={open ? 'basic-menu' : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
-            onClick={openMenu}
-          >
-            <MoreHorizIcon size='small'/>
-          </Button>
-          <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={closeMenu}
-            MenuListProps={{
-              'aria-labelledby': 'basic-button',
-            }}
-          >  
-            <MenuItem onClick={closeMenu}>
-              <ListItemIcon onClick={() => {setCurrentId(post._id)}}>
-                <EditIcon fontSize="small" />
-              </ListItemIcon>
-              <ListItemText>Edit</ListItemText>
-            </MenuItem>
-
-            <MenuItem onClick={closeMenu}>
-              <ListItemIcon onClick={() => dispatch(deletePost(post._id))}>
-                <DeleteIcon fontSize="small" />
-              </ListItemIcon>
-              <ListItemText>Delete</ListItemText>
-            </MenuItem>
-          </Menu>
+              <MenuItem onClick={closeMenu}>
+                <ListItemIcon onClick={() => dispatch(deletePost(post._id))}>
+                  <DeleteIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Delete</ListItemText>
+              </MenuItem>
+            </Menu>
         </div>
-        
+        )}
       </div>
       
       <CardMedia className={style.img} image={post.selectedFile} title={post.title}/>

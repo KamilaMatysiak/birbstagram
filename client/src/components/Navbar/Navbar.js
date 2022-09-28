@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { AppBar, Typography, Toolbar, Avatar, Button, Menu, MenuItem, ListItemText, ListItemIcon, IconButton, Tooltip, Divider } from '@material-ui/core';
 import { Link, useNavigate, useLocation  } from 'react-router-dom';
-
+import decode from 'jwt-decode';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonIcon from '@material-ui/icons/Person';
 import useStyles from './styles'
@@ -23,17 +23,26 @@ const Navbar = () => {
       const closeMenu = () => {
         setAnchorEl(null)
       }
-
-    useEffect(() => {
-        setUser(JSON.parse(localStorage.getItem('profile')));
-    }, [location])
-
+      
     const logout = () => {
         dispatch({type: 'LOGOUT'});
         navigate('/auth');
         setAnchorEl(null);
         setUser(null);
     };
+
+
+    useEffect(() => {
+        const token = user?.token;
+
+        if(token) {
+            const decodedToken = decode(token);
+            if(decodedToken.exp * 1000 < new Date().getTime()) 
+                logout();
+        }
+
+        setUser(JSON.parse(localStorage.getItem('profile')));
+    }, [location])
 
     return (
         <AppBar className={style.appBar} position="static" color="inherit">

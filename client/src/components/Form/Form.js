@@ -29,7 +29,7 @@ const Form = ({currentId, setCurrentId}) => {
     e.preventDefault();
 
     if(currentId !== 0) {
-      dispatch(updatePost({currentId, ...postData, userName: user?.user?.userName}));
+      dispatch(updatePost(currentId, {...postData, userName: user?.user?.userName}));
     } else {
       dispatch(createPost({...postData, userName: user?.user?.userName}));
     }

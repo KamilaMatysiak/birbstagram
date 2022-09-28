@@ -26,8 +26,9 @@ export const updatePost = async (req, res) => {
     const { id: _id } = req.params;
     const post = req.body;
 
-    if(!mongoose.Types.ObjectId.isValid(_id))
-        return res.status(404).json({message: error.message })
+    if(!mongoose.Types.ObjectId.isValid(_id)) {
+        return res.status(404).json({message: "There's no post to update."});
+    }
 
     const updatedPost = await Post.findByIdAndUpdate(_id, {...post, _id}, {new: true});
 
@@ -51,7 +52,7 @@ export const likePost = async (req,res) => {
     if(!req.userId) return res.json({message: "Unauthenticated"});
 
     if(!mongoose.Types.ObjectId.isValid(_id))
-        return res.status(404).json({message: error.message })
+        return res.status(404).json({message: "There's no post to like." })
 
     const post = await Post.findById(_id);
 
