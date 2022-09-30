@@ -3,8 +3,8 @@ import Post from "../models/Post.js";
 
 export const getPosts = async (req,res) => {
     try {
-        const posts = await Post.find();
-        res.status(200).json(posts);
+        const posts = await Post.find().sort({_id: -1});
+        res.status(200).json({ data: posts });
     } catch(error) {
         res.status(404).json({message: error.message});
     }
