@@ -15,15 +15,39 @@ function useQuery() {
 
 const Home = () => {
     const style = useStyles();
-    const dispatch = useDispatch();
-    const [currentId, setCurrentId] = useState(0);
-    const navigate = useNavigate();
     const query = useQuery();
     const searchQuery = query.get('searchQuery');
+
+    const dispatch = useDispatch();   
+    const navigate = useNavigate();   
+    
+    const [currentId, setCurrentId] = useState(0);
+    const [search, setSearch] = useState('');
+    const [tags, setTags] = useState([]);
 
     useEffect(() => {
         dispatch(getPosts());
     }, [currentId, dispatch])
+
+    const searchPost = () => {
+        if(search.trim()) {
+
+        }
+
+        else {
+            navigate("/");
+        }
+    }
+
+    const handleKeyPress =(e) => {
+        if(e.keyCode === 13) {
+            searchPost();
+        }
+    }
+
+    const handleAdd = (tag) => setTags([... tags, tag])
+    const handleDelete = (tagToDelete) => setTags(tags.filter((tag) => tag != tagToDelete))
+    
 
 
     return (
@@ -34,17 +58,35 @@ const Home = () => {
                         <Posts setCurrentId={setCurrentId}/>
                     </Grid>
                     <Grid item xs={12} sm={6} md={3}>
-                        <AppBar className={style.searchBar} position="static" color="inherit">
+                        <Paper className={style.searchBar} position="static">
                             <TextField
                                 name="search"
                                 variant="outlined"
                                 label="Search"
                                 fullWidth
-                                value="test"
-                                onChange={() => {}}
+                                value={search}
+                                onKeyPress={handleKeyPress}
+                                onChange={(e) => {setSearch(e.target.value)}}
                             />
-                        </AppBar>
+
+                            <ChipInput
+                                style={{margin:'10px 0'}}
+                                value={tags}
+                                onAdd={handleAdd}
+                                onDelete={handleDelete}
+                                label="Search tags"
+                                variant="outlined"
+                                fullWidth
+                            />
+                            
+                            <Button onClick={searchPost} className={style.searchButton} variant="contained" fullWidth>
+                                Search 
+                            </Button>
+                            
+                        </Paper>
                         <Form currentId={currentId} setCurrentId={setCurrentId} />
+                        
+                        
                     </Grid>
                 </Grid>
             </Container>
