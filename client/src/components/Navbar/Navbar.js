@@ -7,6 +7,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import useStyles from './styles'
 import birdie from '../../data/birdie.png';
 import { useDispatch } from 'react-redux';
+import { getPosts } from '../../actions/posts';
 
 const Navbar = () => {
     const style = useStyles();
@@ -47,7 +48,7 @@ const Navbar = () => {
     return (
         <AppBar className={style.appBar} position="static" color="inherit">
             <div className={style.logo}>
-                <Link to='/'>
+                <Link to='/' onClick={() => dispatch(getPosts())}>
                     <img className={style.image} src={birdie} alt="Birb" width={100}/>
                 </Link>
                 <Typography className={style.heading} variant="h3">Birbstagram</Typography>    

@@ -7,10 +7,10 @@ import useStyles from './styles'
 
 const Posts = ({setCurrentId}) => {
   const style = useStyles()
-  const posts = useSelector((state) => state.posts);
+  const {posts} = useSelector((state) => state.posts);
   return (
     
-    !posts.length ? <div className={style.mainDiv}><CircularProgress className={style.spinner}/></div> : (
+    !posts?.length ? <div className={style.mainDiv}><CircularProgress className={style.spinner}/></div> : (
       <div >
         {posts.map((post) => (
         <Grid key={post._id} item xs={12} sm={12}>
