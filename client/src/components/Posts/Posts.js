@@ -16,9 +16,6 @@ const Posts = ({setCurrentId}) => {
     </div>
   );
 
-  console.log(posts.length);
-  console.log(isLoading);
-
   return (
     
     isLoading ? <div className={style.mainDiv}><CircularProgress className={style.spinner}/></div> : (

@@ -10,6 +10,17 @@ export const getPosts = async (req,res) => {
     }
 }
 
+export const getPost = async (req,res) => {
+    const {id} = req.params;
+
+    try {
+        const posts = await Post.findById(id);
+        res.status(200).json({ data: posts });
+    } catch(error) {
+        res.status(404).json({message: error.message});
+    }
+}
+
 export const getPostsBySearch = async (req,res) => {
     const { searchQuery, tags } = req.query;
     

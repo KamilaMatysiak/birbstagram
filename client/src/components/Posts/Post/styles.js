@@ -3,9 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles({
 
   card: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
     borderRadius: '15px',
     position: 'relative',
     border: '1px solid rgba(0,0,0,0.12)',
@@ -15,6 +12,7 @@ export default makeStyles({
   header: {
     padding: '8px 16px 8px 16px',
     display: 'flex',
+    width: '98%',
     justifyContent: 'space-between',
   },
 
@@ -26,7 +24,7 @@ export default makeStyles({
 
   creatorBox: {
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   creator: {
@@ -64,5 +62,8 @@ export default makeStyles({
     marginLeft: 4,
   },
 
+  cardButton: {
+    width: '100%',
+  }
 
 });
