@@ -3,7 +3,7 @@ import { FETCH_ALL, LIKE, UPDATE, CREATE, DELETE, FETCH_BY_SEARCH, START_LOADING
 
 export const getPosts = () => async (dispatch) => {
     try {
-        console.log("Initiating: getPosts");
+        ("Initiating: getPosts");
         dispatch({type: START_LOADING});
 
         const {data} = await api.fetchPosts();

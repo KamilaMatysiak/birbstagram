@@ -1,13 +1,10 @@
 import React, {useRef, useState} from 'react';
 import {Divider, TextField, Typography} from '@material-ui/core';
 import { useDispatch } from 'react-redux';
-
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+
 import { commentPost } from '../../actions/posts';
-
 import useStyles from './styles';
-
 
 const CommentSection = ({post}) => {
   const dispatch = useDispatch();

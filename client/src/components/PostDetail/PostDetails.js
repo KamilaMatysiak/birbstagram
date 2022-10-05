@@ -1,9 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import { Paper, Typography, CircularProgress, Divider, CardMedia, TextField, Grid } from '@material-ui/core';
+import React, { useEffect } from 'react';
+import { Paper, Typography, CircularProgress, Divider, CardMedia, Grid } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { useParams, useNavigate } from 'react-router-dom';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { getPost, getPostsBySearch } from '../../actions/posts';
 
@@ -19,13 +18,11 @@ const PostDetails = () => {
 
 
   useEffect(() => {
-    console.log("Dispatching: getPost");
     dispatch(getPost(id));
   }, [id]);
 
   useEffect(() => {
     if(post) {
-      console.log("Dispatching: getPostsBySearch");
       dispatch(getPostsBySearch({search: 'none', tags: post.data?.tags.join(',')}));  
     }
   }, [post])
