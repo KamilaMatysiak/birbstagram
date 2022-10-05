@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {Divider, TextField, Typography} from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 
@@ -14,14 +14,17 @@ const CommentSection = ({post}) => {
   const style = useStyles();
   const user = JSON.parse(localStorage.getItem('profile'));
 
-  const [comments, setComments] = useState(['love Birb', 'great Birb!' , 'omg Birbie!']);
+  const [comments, setComments] = useState(post?.data?.comments);
   const [comment, setComment] = useState('');
-  
+  const commentsRef = useRef();
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = async (e) => {
     if(e.keyCode === 13) {
         const finalComment = `${user.user.userName}: ${comment}`;
-        dispatch(commentPost(finalComment, post.data._id))
+        const newComments = await dispatch(commentPost(finalComment, post.data._id))
+        setComments(newComments);
+        setComment('');
+        commentsRef.current.scrollIntoView({behavior: 'smooth'});
     }
 }
 
@@ -30,10 +33,13 @@ const CommentSection = ({post}) => {
         <div className={style.commentSection}>
           { comments.map((c,i) => (
               <div key={i} className={style.comment}>
-                  <Typography variant="body2">{c}</Typography>
+                  <Typography variant="body2">
+                    <strong>{c.split(': ')[0]}</strong>
+                    {c.split(':')[1]}
+                  </Typography>
               </div>
           ))}
-            
+            <div ref={commentsRef}/>
         </div>
         
         <Divider/>

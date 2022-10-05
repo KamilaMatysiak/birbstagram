@@ -74,7 +74,7 @@ const PostDetails = () => {
         <div className={style.recommendedPosts}>
           <Typography gutterBottom variant="h5"> Recommended Posts: </Typography>
           <Divider/>
-          <Grid container spacing={4}> 
+          <Grid container spacing={4} alignItems="center" justifyContent='space-around'> 
             {recommendedPosts.map(({ _id, title, selectedFile, likes}) => (
               <div className={style.recommendedPost} key={_id} onClick={() => openPost(_id)}>
                 <CardMedia className={style.recommendedImg} image={selectedFile} title={title}/>

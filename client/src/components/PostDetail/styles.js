@@ -13,6 +13,7 @@ export default makeStyles({
     margin: '25px 100px',
     display: 'flex',
     borderRadius: 15,
+    
   },
 
   image: {
@@ -29,9 +30,9 @@ export default makeStyles({
   },
 
   info: {
-    width: '30%',
+    width: '32%',
     paddingTop: 15,
-    paddingLeft: 10,
+    paddingLeft: 15,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'space-around',
@@ -41,11 +42,13 @@ export default makeStyles({
   commentSectionDiv: {
     height: '100%', 
     display: 'flex', 
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
 
   commentSection: {
     flex: 1,
+    maxHeight: 450,
+    overflow: 'auto',
   },
 
   comment: {
@@ -119,7 +122,7 @@ export default makeStyles({
   },
 
   recommendedPosts: {
-    padding: 25,
+    padding: 20,
     width: '100%',
   },
 
@@ -136,7 +139,7 @@ export default makeStyles({
     height: '220px',
     padding: 0,
     borderRadius: 8,
-    margin: 8
+
   },
 
   likesOverlay: {
@@ -147,7 +150,6 @@ export default makeStyles({
     color: 'white',
     padding: 0,
     borderRadius: 8,
-    margin: 8,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
