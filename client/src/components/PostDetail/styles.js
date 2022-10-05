@@ -4,6 +4,13 @@ export default makeStyles({
 
   container: {
     margin: 100,
+    marginBottom: 25,
+    display: 'flex',
+    borderRadius: 15,
+  },
+
+  noMarginTop: {
+    margin: '25px 100px',
     display: 'flex',
     borderRadius: 15,
   },
@@ -22,12 +29,19 @@ export default makeStyles({
   },
 
   info: {
+    width: '30%',
     paddingTop: 15,
     paddingLeft: 10,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'space-around',
     justifyContent: 'space-around',
+  },
+
+  commentSectionDiv: {
+    height: '100%', 
+    display: 'flex', 
+    flexDirection: 'column'
   },
 
   commentSection: {
@@ -90,5 +104,64 @@ export default makeStyles({
     width: '80%',
     marginRight: 10
   },
+
+  mainDiv: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '7em',
+    margin: '250px auto'
+  },
+
+  spinner: {
+    color:'rgba(255, 94, 0, 1)'
+  },
+
+  recommendedPosts: {
+    padding: 25,
+    width: '100%',
+  },
+
+  recommendedPost: {
+    width: '220px',
+    height: '220px',
+    position: 'relative',
+    margin: '32px 8px',
+  },
+
+  recommendedImg: {
+    position: 'absolute',
+    width: '220px',
+    height: '220px',
+    padding: 0,
+    borderRadius: 8,
+    margin: 8
+  },
+
+  likesOverlay: {
+    position: 'absolute',
+    width: '220px',
+    height: '220px',
+    background: 'rgba(0,0,0,0.7)',
+    color: 'white',
+    padding: 0,
+    borderRadius: 8,
+    margin: 8,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    opacity: '0%',
+    cursor: 'pointer',
+    '&:hover': {
+      opacity: '100%',
+    }
+  },
+
+  likesLabel: {
+    fontWeight: 'bold',
+    fontSize: '2em',
+    textAlign: 'center',
+  }
 
 });

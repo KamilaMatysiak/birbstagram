@@ -64,7 +64,7 @@ const Home = () => {
                                 label="Search"
                                 fullWidth
                                 value={search}
-                                onKeyPress={handleKeyPress}
+                                onKeyDown={handleKeyPress}
                                 onChange={(e) => {setSearch(e.target.value)}}
                             />
 

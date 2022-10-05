@@ -3,7 +3,10 @@ import Post from "../models/Post.js";
 
 export const getPosts = async (req,res) => {
     try {
+        console.log("Initiating: getPosts");
+
         const posts = await Post.find().sort({_id: -1});
+
         res.status(200).json({ data: posts });
     } catch(error) {
         res.status(404).json({message: error.message});
@@ -11,6 +14,7 @@ export const getPosts = async (req,res) => {
 }
 
 export const getPost = async (req,res) => {
+    console.log("Initiating: getPost");
     const {id} = req.params;
 
     try {
@@ -22,14 +26,12 @@ export const getPost = async (req,res) => {
 }
 
 export const getPostsBySearch = async (req,res) => {
+    console.log("Initiating: getPostBySearch");
     const { searchQuery, tags } = req.query;
-    
     try {        
         
         const title = new RegExp(searchQuery, 'i');
-        
         const posts = await Post.find({ $or: [ { title }, { tags: { $in: tags.split(',') } } ] });
-
         res.json({ data: posts })
     } catch(error) {
         res.status(404).json({message: error.message});
@@ -90,6 +92,18 @@ export const likePost = async (req,res) => {
     }
 
     const updatedPost = await Post.findByIdAndUpdate(_id, post, {new: true})
+
+    res.json(updatedPost);
+}
+
+export const commentPost = async (req,res) => {
+    const { id } = req.params;
+    const { value } = req.body;
+
+    const post = await Post.findById(id);
+    post.comments.push(value);
+
+    const updatedPost = await Post.findByIdAndUpdate(id, post, { new: true});
 
     res.json(updatedPost);
 }

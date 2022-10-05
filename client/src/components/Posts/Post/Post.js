@@ -25,7 +25,7 @@ const Post = ({ post, setCurrentId }) => {
     setAnchorEl(null)
   }
 
-  const openPost = () => navigate(`/post/${post._id}`);
+  const openPost = () => navigate(`/details/${post._id}`);
 
   const Likes = () => {
     if(post.likes.length > 0) {
@@ -71,15 +71,15 @@ const Post = ({ post, setCurrentId }) => {
                   'aria-labelledby': 'basic-button',
                 }}
               >  
-                <MenuItem onClick={closeMenu}>
-                  <ListItemIcon onClick={() => {setCurrentId(post._id)}}>
+                <MenuItem onClick={() => {setCurrentId(post._id)}}>
+                  <ListItemIcon>
                     <EditIcon fontSize="small" />
                   </ListItemIcon>
                   <ListItemText>Edit</ListItemText>
                 </MenuItem>
 
-                <MenuItem onClick={closeMenu}>
-                  <ListItemIcon onClick={() => dispatch(deletePost(post._id))}>
+                <MenuItem onClick={() => dispatch(deletePost(post._id))}>
+                  <ListItemIcon>
                     <DeleteIcon fontSize="small" />
                   </ListItemIcon>
                   <ListItemText>Delete</ListItemText>
