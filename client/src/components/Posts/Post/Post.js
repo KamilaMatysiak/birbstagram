@@ -15,6 +15,7 @@ const Post = ({ post, setCurrentId }) => {
   const style = useStyles();
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
+  const [likes, setLikes] = useState(post?.likes);
   const open = Boolean(anchorEl);
   const user = JSON.parse(localStorage.getItem('profile'));
   const navigate = useNavigate();
@@ -25,16 +26,27 @@ const Post = ({ post, setCurrentId }) => {
     setAnchorEl(null)
   }
 
+  const userId = user?.user?.googleId || user?.user?._id
+  const hasLikedPost = post.likes.find((like) => like === (userId))
+  const handleLike = async () => {
+    dispatch(likePost(post._id))
+    if(hasLikedPost) {
+      setLikes(post.likes.filter((id) => id !== userId))
+    } else {
+      setLikes([...post.likes, userId]);
+    }
+  }
+
   const openPost = () => navigate(`/details/${post._id}`);
 
   const Likes = () => {
-    if(post.likes.length > 0) {
+    if(post?.likes?.length > 0) {
       return(
-        post.likes.find((like) => like === (user?.user?.googleId || user?.user?._id))
+        likes.find((like) => like === (userId))
           ? (
-            <><FavoriteIcon fontSize="small"/> &nbsp; {post.likes.length} {post.likes.length > 1 ? 'likes' : 'like'} </>
+            <><FavoriteIcon fontSize="small"/> &nbsp; {likes.length} {likes.length > 1 ? 'likes' : 'like'} </>
           ) : (
-            <><FavoriteBorderIcon fontSize="small"/> &nbsp; {post.likes.length} {post.likes.length === 1 ? 'like' : 'likes'} </>
+            <><FavoriteBorderIcon fontSize="small"/> &nbsp; {likes.length} {likes.length === 1 ? 'like' : 'likes'} </>
           )
         ) 
     }
@@ -92,7 +104,7 @@ const Post = ({ post, setCurrentId }) => {
           <CardMedia className={style.img} image={post.selectedFile} title={post.title}/>
         </ButtonBase>
         <CardContent>
-          <Button size="small" className={style.likeButton} color="secondary" disabled={!user?.user} onClick={() => dispatch(likePost(post._id))}>
+          <Button size="small" className={style.likeButton} color="secondary" disabled={!user?.user} onClick={handleLike}>
             <Likes/>
           </Button>
           <Typography className={style.title} variant="body2" gutterBottom>{post.title}</Typography>
